@@ -17,7 +17,7 @@ jobs:
         env:
           POSTGRES_USER: musyimi
           POSTGRES_PASSWORD: password
-          POSTGRES_BD: repair
+          POSTGRES_DB: repair
         ports:
           - 5432:5432  
         options: >-
