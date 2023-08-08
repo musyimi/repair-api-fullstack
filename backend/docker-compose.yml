@@ -1,0 +1,34 @@
+services:
+  db:
+    container_name: postgresdb
+    image: postgres:15.1
+    environment:
+      POSTGRES_USER: musyimi
+      POSTGRES_PASSWORD: password
+      PGDATA: /data/postgres
+    volumes:
+      - db:/data/postgres
+    ports:
+      - "5432:5432"
+    networks:
+      - db
+    restart: unless-stopped
+  repair-api:
+    container_name: repair-api
+    image: mwenekware/repair-api
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/repair
+    networks:
+      - db
+    depends_on:
+      - db
+    ports:
+      - "8088:8080"
+    restart: unless-stopped
+
+networks:
+  db:
+    driver: bridge
+
+volumes:
+  db:
