@@ -44,12 +44,9 @@ jobs:
       - name: Set Build number
         id: build-number
         run: echo "::set-output name=BUILD_NUMBER::$(date '+%-d.%-m.%Y.%-H.%-M.%-S')"
-        
       - name: Build Package Push with Maven
         run: |
-          ./mvnw --no-transfer-progress clean package \
-            -P jib-push-to-dockerhub \
-              -Ddocker.image.tag=${{steps.build-number.outputs.BUILD_NUMBER}}
+          mvn -ntp -B verify -Ddocker.image.tag=${{steps.build-number.outputs.BUILD_NUMBER}} jib:build
       - name: Update Dockerrun.aws.json api image tag with new build number
         run: |
           cat Dockerrun.aws.json
