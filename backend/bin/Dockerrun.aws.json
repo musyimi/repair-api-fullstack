@@ -3,7 +3,7 @@
   "containerDefinitions": [
     {
       "name": "repair-api",
-      "image": "mwenekware/repair-api:latest",
+      "image": "mwenekware/repair-api",
       "essential": true,
       "memory": 512,
       "portMappings": [
@@ -15,7 +15,7 @@
       "environment": [
         {
           "name": "SPRING_DATASOURCE_URL",
-          "value": "jdbc:postgresql://my-db-instance.ces7iyo08tpt.eu-central-1.rds.amazonaws.com:5432/repair"
+          "value": "jdbc:postgresql://awseb-e-hkqap3dqvj-stack-awsebrdsdatabase-sfx6fqervjtf.ces7iyo08tpt.eu-central-1.rds.amazonaws.com:5432/repair"
         }
       ]
     }
