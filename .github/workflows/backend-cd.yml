@@ -44,6 +44,7 @@ jobs:
       - name: Set Build number
         id: build-number
         run: echo "::set-output name=BUILD_NUMBER::$(date '+%-d.%-m.%Y.%-H.%-M.%-S')"
+        
       - name: Build Package Push with Maven
         run: |
           ./mvnw --no-transfer-progress clean package \
