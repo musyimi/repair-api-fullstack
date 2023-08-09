@@ -39,13 +39,16 @@ jobs:
       - name: Login to Docker Hub
         uses: docker/login-action@v2
         with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_ACCESS_TOKEN }} 
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
       - name: Set Build number
         id: build-number
-        run: echo "BUILD_NUMBER=$(date '+%d.%m.%Y.%H.%M.%S')" >> %GITHUB_OUTPUT
+        run: echo "::set-output name=BUILD_NUMBER::$(date '+%-d.%-m.%Y.%-H.%-M.%-S')"
       - name: Build Package Push with Maven
-        run: mvn -ntp -B verify -Ddocker.image.tag=${{steps.build-number.outputs.BUILD_NUMBER}} jib:build
+        run: |
+          ./mvnw --no-transfer-progress clean package \
+            -P jib-push-to-dockerhub \
+              -Ddocker.image.tag=${{steps.build-number.outputs.BUILD_NUMBER}}
       - name: Update Dockerrun.aws.json api image tag with new build number
         run: |
           cat Dockerrun.aws.json
