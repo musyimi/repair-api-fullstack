@@ -3,7 +3,7 @@
   "containerDefinitions": [
     {
       "name": "repair-api",
-      "image": "mwenekware/repair-api:10.08.2023.10.59.30",
+      "image": "mwenekware/repair-api:10.08.2023.12.55.26",
       "essential": true,
       "memory": 512,
       "portMappings": [
